@@ -5,7 +5,7 @@ import java.util.List;
 import model.entities.Seller;
 
 
-public interface SellerDAO {
+public interface SellerDao {
 	
 	void insert(Seller obj);
 
@@ -16,6 +16,5 @@ public interface SellerDAO {
 	Seller findById(Integer id);
 
 	List<Seller> findAll();
-
 
 }
