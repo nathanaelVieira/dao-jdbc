@@ -96,22 +96,21 @@ public class Seller implements Serializable {
 	@Override
 	public String toString() {
 
-		StringBuilder stringBuilder = new StringBuilder();
-
-		stringBuilder.append("Seller ___\n");
-		stringBuilder.append("          |\n");
-		stringBuilder.append("          |_ id: [" + id + "]\n");
-		stringBuilder.append("          |_ name: [" + name + "]\n");
-		stringBuilder.append("          |_ email: [" + email + "]\n");
-		stringBuilder.append("          |_ birtDate: [" + birthDate + "]\n");
-		stringBuilder.append("          |_ baseSalary: [" + baseSalary + "]\n");
-		stringBuilder.append("          |_ Department ___\n");
-		stringBuilder.append("                           |_ " + department + "\n");
-
-		return stringBuilder.toString();
-		// return "Seller [id=" + id + ", name=" + name + ", email=" + email + ",
-		// birthDate=" + birthDate + ", baseSalary="
-		// + baseSalary + ", department=" + department + "]";
+//		StringBuilder stringBuilder = new StringBuilder();
+//
+//		stringBuilder.append("Seller ___\n");
+//		stringBuilder.append("          |\n");
+//		stringBuilder.append("          |_ id: [" + id + "]\n");
+//		stringBuilder.append("          |_ name: [" + name + "]\n");
+//		stringBuilder.append("          |_ email: [" + email + "]\n");
+//		stringBuilder.append("          |_ birtDate: [" + birthDate + "]\n");
+//		stringBuilder.append("          |_ baseSalary: [" + baseSalary + "]\n");
+//		stringBuilder.append("          |_ Department ___\n");
+//		stringBuilder.append("                           |_ " + department + "\n");
+//
+//		return stringBuilder.toString();
+		return "Seller [id=" + id + ", name=" + name + ", email=" + email + ", birthDate=" + birthDate + ", baseSalary="
+				+ baseSalary + ", department=" + department + "]";
 	}
 
 }
