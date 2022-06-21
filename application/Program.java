@@ -32,6 +32,13 @@ public class Program {
 				department);
 		sellerDao.insert(seller01);
 		System.out.println("Inserted: New id = " + seller01.getId());
+
+		System.out.printf("%n=== Test 5: seller update ===%n");
+		seller = sellerDao.findById(1);
+		seller.setName("Valmir Bento Vieira");
+		sellerDao.update(seller);
+		System.out.println("Update completed");
+
 	}
 
 }
