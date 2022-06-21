@@ -1,0 +1,82 @@
+[33mcommit a634a5f4d7a5a70384cfcd87c79657adf40cefda[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: nathanael <vieira_nathanael@hotmail.com>
+Date:   Tue Jun 21 17:09:20 2022 -0300
+
+    delete implementation
+
+[1mdiff --git a/application/Program.java b/application/Program.java[m
+[1mindex f15b360..1963d78 100644[m
+[1m--- a/application/Program.java[m
+[1m+++ b/application/Program.java[m
+[36m@@ -1,7 +1,7 @@[m
+ package application;[m
+ [m
+[31m-import java.util.Date;[m
+ import java.util.List;[m
+[32m+[m[32mimport java.util.Scanner;[m
+ [m
+ import model.dao.DaoFactory;[m
+ import model.dao.SellerDao;[m
+[36m@@ -11,7 +11,7 @@[m [mimport model.entities.Seller;[m
+ public class Program {[m
+ [m
+ 	public static void main(String[] args) {[m
+[31m-[m
+[32m+[m		[32mScanner sc = new Scanner(System.in);[m
+ 		SellerDao sellerDao = DaoFactory.createSellerDao();[m
+ [m
+ 		System.out.println("=== Test 1: seller by id ===");[m
+[36m@@ -27,11 +27,11 @@[m [mpublic class Program {[m
+ 		list = sellerDao.findAll();[m
+ 		list.forEach(e -> System.out.println(e));[m
+ [m
+[31m-		System.out.printf("%n=== Test 4: seller find all ===%n");[m
+[31m-		Seller seller01 = new Seller(null, "Nathanael Lopes Vieira", "nathanael@eniac.edu.br", new Date(), 3000.0,[m
+[31m-				department);[m
+[31m-		sellerDao.insert(seller01);[m
+[31m-		System.out.println("Inserted: New id = " + seller01.getId());[m
+[32m+[m[32m//		System.out.printf("%n=== Test 4: seller find all ===%n");[m
+[32m+[m[32m//		Seller seller01 = new Seller(null, "Nathanael Lopes Vieira", "nathanael@eniac.edu.br", new Date(), 3000.0,[m
+[32m+[m[32m//				department);[m
+[32m+[m[32m//		sellerDao.insert(seller01);[m
+[32m+[m[32m//		System.out.println("Inserted: New id = " + seller01.getId());[m
+ [m
+ 		System.out.printf("%n=== Test 5: seller update ===%n");[m
+ 		seller = sellerDao.findById(1);[m
+[36m@@ -39,6 +39,14 @@[m [mpublic class Program {[m
+ 		sellerDao.update(seller);[m
+ 		System.out.println("Update completed");[m
+ [m
+[32m+[m		[32mSystem.out.printf("%n=== Test 6: seller delete ===%n");[m
+[32m+[m		[32mSystem.out.print("Enter with for delete test: ");[m
+[32m+[m		[32mint id = sc.nextInt();[m
+[32m+[m		[32msellerDao.deleteById(id);[m
+[32m+[m		[32mSystem.out.println("Delete complete");[m
+[32m+[m
+[32m+[m		[32msc.close();[m
+[32m+[m
+ 	}[m
+ [m
+ }[m
+[1mdiff --git a/model/dao/impl/SellerDaoJDBC.java b/model/dao/impl/SellerDaoJDBC.java[m
+[1mindex 006ee33..8c5da1f 100644[m
+[1m--- a/model/dao/impl/SellerDaoJDBC.java[m
+[1m+++ b/model/dao/impl/SellerDaoJDBC.java[m
+[36m@@ -84,7 +84,16 @@[m [mpublic class SellerDaoJDBC implements SellerDao {[m
+ [m
+ 	@Override[m
+ 	public void deleteById(Integer id) {[m
+[31m-		// TODO Auto-generated method stub[m
+[32m+[m[41m	[m
+[32m+[m		[32mPreparedStatement preparedStatement = null;[m
+[32m+[m		[32mtry {[m
+[32m+[m			[32mpreparedStatement = connection.prepareStatement("DELETE FROM seller " + "WHERE Id = ?");[m
+[32m+[m
+[32m+[m			[32mpreparedStatement.setInt(1, id);[m
+[32m+[m			[32mpreparedStatement.executeUpdate();[m
+[32m+[m		[32m} catch (SQLException e) {[m
+[32m+[m			[32mthrow new DbException(e.getMessage());[m
+[32m+[m		[32m}[m
+ [m
+ 	}[m
+ [m
