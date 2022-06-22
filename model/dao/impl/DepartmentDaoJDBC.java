@@ -49,13 +49,29 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
 	@Override
 	public void update(Department obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement("UPDATE department SET Name = ? WHERE Id = ? ");
+			preparedStatement.setInt(1, obj.getId());
+			preparedStatement.setString(2, obj.getName());
+
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connection.prepareStatement("DELETE FROM department WHERE Id = ?");
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -68,7 +84,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
-				return intantiateDepartment(resultSet);
+				return instantiateDepartment(resultSet);
 			}
 			return null;
 
@@ -89,7 +105,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			List<Department> listDepartment = new ArrayList<>();
 
 			while (resultSet.next()) {
-				listDepartment.add(intantiateDepartment(resultSet));
+				listDepartment.add(instantiateDepartment(resultSet));
 			}
 
 			return listDepartment;
@@ -100,7 +116,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
 	}
 
-	private Department intantiateDepartment(ResultSet resultSet) throws SQLException {
+	private Department instantiateDepartment(ResultSet resultSet) throws SQLException {
 		Department department = new Department();
 		department.setId(resultSet.getInt("Id"));
 		department.setName(resultSet.getString("Name"));
